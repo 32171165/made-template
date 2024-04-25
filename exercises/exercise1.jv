@@ -12,6 +12,12 @@ pipeline AirportPipeline {
         "IATA" oftype text,
         "ICAO" oftype text,
         "Latitude" oftype text,
+        "Longtitude" oftype text,
+        "Altitude" oftype text,
+        "Zeitzone" oftype decimal,
+        "DST" oftype text,
+        "Zeitzonen-Datenbank" oftype text,
+        "geo_punkt" oftype text
         ];
     }
     block DatabaseLoader oftype SQLiteLoader { table: "airports"; file: "./airports.sqlite"; }
