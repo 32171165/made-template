@@ -13,7 +13,7 @@ pipeline AirportPipeline {
         "ICAO" oftype text,
         "Latitude" oftype decimal,
         "Longitude" oftype decimal,
-        "Altitude" oftype text,
+        "Altitude" oftype integer,
         "Zeitzone" oftype decimal,
         "DST" oftype text,
         "Zeitzonen-Datenbank" oftype text,
