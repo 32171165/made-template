@@ -40,7 +40,7 @@ pipeline Tree {
     
 
     constraint Furth on text:
-        value matches /Furth-([A-Za-z])*$/;
+        value matches /Furth-([A-Za-zü])*$/;
 
     
     
