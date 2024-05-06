@@ -17,7 +17,7 @@ pipeline Tree {
         header: true;
         columns: [
         "lfd_nr" oftype integer,
-        "stadtteil" oftype text,
+        "stadtteil" oftype FurthConstraint,
         "standort" oftype text,
         "baumart_botanisch" oftype text,
         "baumart_deutsch" oftype text,
@@ -26,9 +26,18 @@ pipeline Tree {
         ];
     }
 
-    /*
+    valuetype FurthConstraint oftype text {
+        constraints :[
+            Furth,
+        ];
+    }
+
+    constraint Furth on text:
+        value matches /Furth-([A-Za-z])*$/;
+    
+  /*  
     transform Coordinate {
-        from Old oftype decimal;
+        from Old oftype text;
         to New oftype decimal;
         New: Old/100;
     }
@@ -38,7 +47,7 @@ pipeline Tree {
         outputColumn: 'id';
         use: Coordinate;
     }
-    */
+   */ 
     block DatabaseLoader oftype SQLiteLoader { table: "trees"; file: "./trees.sqlite"; }
 
     
