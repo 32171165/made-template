@@ -5,7 +5,7 @@ pipeline Tree {
     ->AirportsCSVInterpreter
     ->DropBaumartDeutsch
     ->AirportsTableInterpreter
-    ->CelsiusToFahrenheitTransformer
+    //->CelsiusToFahrenheitTransformer
     ->DatabaseLoader;
 
 
@@ -26,7 +26,7 @@ pipeline Tree {
         ];
     }
 
-    
+    /*
     transform Coordinate {
         from Old oftype decimal;
         to New oftype decimal;
@@ -38,7 +38,7 @@ pipeline Tree {
         outputColumn: 'id';
         use: Coordinate;
     }
-    
+    */
     block DatabaseLoader oftype SQLiteLoader { table: "trees"; file: "./trees.sqlite"; }
 
     
