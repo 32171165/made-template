@@ -2,7 +2,7 @@
 
 ## Title
 <!-- Give your project a short title. -->
-Affect of climate change on immigration
+Relation between climate change and immigration
 ## Main Question
 
 <!-- Think about one main question you want to answer based on the data. -->
