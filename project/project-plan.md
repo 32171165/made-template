@@ -42,6 +42,13 @@ This dataset contains, the countries involved, applications for refuge and the d
 <!-- List of work packages ordered sequentially, each pointing to an issue with more details. -->
 
 1. Get to know data [#1][i1]
-2. ...
+2. Data Cleaning [#2][i2]
+3. Data Integration [#3][i3]
+4. Analysing the Data [#4][i4]
+5. Writing Report [#5][i5]
 
 [i1]: https://github.com/32171165/made-template/issues/1#issue-2300237429
+[i2]: https://github.com/32171165/made-template/issues/2#issue-2300289088
+[i3]: https://github.com/32171165/made-template/issues/3#issue-2300290469
+[i4]: https://github.com/32171165/made-template/issues/4#issue-2300291419
+[i5]: https://github.com/32171165/made-template/issues/5#issue-2300292743
