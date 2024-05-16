@@ -41,7 +41,7 @@ This dataset contains, the countries involved, applications for refuge and the d
 
 <!-- List of work packages ordered sequentially, each pointing to an issue with more details. -->
 
-1. Example Issue [#1][i1]
+1. Get to know data [#1][i1]
 2. ...
 
-[i1]: https://github.com/jvalue/made-template/issues/1
+[i1]: https://github.com/32171165/made-template/issues/1#issue-2300237429
