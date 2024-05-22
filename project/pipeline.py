@@ -55,7 +55,7 @@ def check_file_downloaded(directory, file):
         if file[:6] == 'Global':
             download_from_kaggle(dataset_list=infos['Global']['url'], directory=directory)
         if file[:6] == 'asylum':
-            download_from_kaggle(dataset_list=['asylum']['url'], directory=directory)
+            download_from_kaggle(dataset_list=infos['asylum']['url'], directory=directory)
 
 
 
@@ -130,3 +130,7 @@ def main():
          
 if __name__ == '__main__':
     main()
+    
+    
+    /data/*
+!/data/.gitkeep
