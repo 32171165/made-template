@@ -1,2 +1,9 @@
 #!/bin/bash
-python3 project/pipeline.py
+python ./pipeline.py
+
+rm ../data/asylum-decisions.csv
+rm ../data/GlobalLandTemperaturesByCity.csv
+rm ../data/GlobalLandTemperaturesByMajorCity.csv
+rm ../data/GlobalLandTemperaturesByState.csv
+rm ../data/GlobalTemperatures.csv
+
