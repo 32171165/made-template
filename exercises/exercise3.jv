@@ -3,7 +3,6 @@ pipeline Tree {
     DataExtractor
     ->AirportsTextFileInterpreter
     ->LineDelete
-
     ->AirportsCSVInterpreter
     ->WriteHeader
     ->WriteHeader2
@@ -11,11 +10,12 @@ pipeline Tree {
     ->AirportsTableInterpreter
     ->JanTransformer
     ->FebTransformer
+    //->DashTransform
     ->DatabaseLoader;
 
 
     block DataExtractor oftype HttpExtractor { url: "https://www-genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv"; }
-    block AirportsTextFileInterpreter oftype TextFileInterpreter {}
+    block AirportsTextFileInterpreter oftype TextFileInterpreter {encoding : "latin2";}
     block LineDelete oftype TextLineDeleter {lines: [1, 2,3,4,5,6, 7];}
     block AirportsCSVInterpreter oftype CSVInterpreter { delimiter: ";"; }
     block WriteHeader oftype CellWriter{at:range A1:E1; write:["year", "month", "goods_id", "goods_name", "goods_source"];}
@@ -50,7 +50,7 @@ pipeline Tree {
     */
 
     constraint IdCon on text:
-        value matches /NST7-([0-9A-Z])*3/;
+        value matches /NST7-([0-9A-Z])/;
 
     
     transform Month{
@@ -75,6 +75,17 @@ pipeline Tree {
         inputColumns: ['month'];
         outputColumn: 'month';
         use: Feb;
+    }
+
+    transform Dash{
+        from dash oftype text;
+        to zero oftype text;
+        zero: dash replace /-/ with "0";
+    }
+    block DashTransform oftype TableTransformer {
+        inputColumns: ['total'];
+        outputColumn: 'asd';
+        use: Dash;
     }
     /*
     constraint GeoConstraint on text:
