@@ -28,8 +28,8 @@ pipeline Tree {
         "goods_id" oftype text,
         "goods_name" oftype text,
         "goods_source" oftype text,
-        "abroad" oftype text,
-        "total" oftype text,
+        "abroad" oftype integer,
+        "total" oftype integer,
         ];
     }
 
