@@ -9,6 +9,7 @@ pipeline Tree {
     ->WriteHeader2
     ->DropBaumartDeutsch
     ->AirportsTableInterpreter
+    ->MonthTransformer
     ->DatabaseLoader;
 
 
@@ -25,17 +26,17 @@ pipeline Tree {
         columns: [
         "year" oftype integer,
         "month" oftype text,
-        "goods_id" oftype text,
+        "goods_id" oftype IdConstraint,
         "goods_name" oftype text,
         "goods_source" oftype text,
-        "abroad" oftype integer,
-        "total" oftype integer,
+        "abroad" oftype text,
+        "total" oftype text,
         ];
     }
 
-    valuetype FurthConstraint oftype text {
+    valuetype IdConstraint oftype text {
         constraints :[
-            Furth,
+            IdCon,
         ];
     }
     /*
@@ -47,10 +48,20 @@ pipeline Tree {
     }
     */
 
-    constraint Furth on text:
-        value matches /Januar/;
+    constraint IdCon on text:
+        value matches /NST7-([0-9A-Z])*3/;
 
     
+    transform Month{
+        from LowerCase oftype text;
+        to BUpperCase oftype text;
+        BUpperCase: LowerCase replace /M�rz/ with "MÄRZ";
+    }
+    block MonthTransformer oftype TableTransformer {
+        inputColumns: ['month'];
+        outputColumn: 'deneme';
+        use: Month;
+}
     /*
     constraint GeoConstraint on text:
         value matches /\d{1,3}\.\d{1,}\, \d{1,3}\.\d{1,}/;
