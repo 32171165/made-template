@@ -1,0 +1,74 @@
+pipeline Tree {
+
+    DataExtractor
+    ->AirportsTextFileInterpreter
+    ->LineDelete
+
+    ->AirportsCSVInterpreter
+    ->WriteHeader
+    ->WriteHeader2
+    ->DropBaumartDeutsch
+    ->AirportsTableInterpreter
+    ->DatabaseLoader;
+
+
+    block DataExtractor oftype HttpExtractor { url: "https://www-genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv"; }
+    block AirportsTextFileInterpreter oftype TextFileInterpreter {}
+    block LineDelete oftype TextLineDeleter {lines: [1, 2,3,4,5,6, 7];}
+    block AirportsCSVInterpreter oftype CSVInterpreter { delimiter: ";"; }
+    block WriteHeader oftype CellWriter{at:range A1:E1; write:["year", "month", "goods_id", "goods_name", "goods_source"];}
+    block WriteHeader2 oftype CellWriter{at:range AT1:AU1; write:["abroad", "total"];}
+
+    block DropBaumartDeutsch oftype ColumnDeleter { delete: [column F];}
+    block AirportsTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+        "year" oftype integer,
+        "month" oftype text,
+        "goods_id" oftype text,
+        "goods_name" oftype text,
+        "goods_source" oftype text,
+        "abroad" oftype text,
+        "total" oftype text,
+        ];
+    }
+
+    valuetype FurthConstraint oftype text {
+        constraints :[
+            Furth,
+        ];
+    }
+    /*
+    
+    valuetype IdConstraint oftype text {
+        constraints :[
+            GeoConstraint,
+        ];
+    }
+    */
+
+    constraint Furth on text:
+        value matches /Januar/;
+
+    
+    /*
+    constraint GeoConstraint on text:
+        value matches /\d{1,3}\.\d{1,}\, \d{1,3}\.\d{1,}/;
+    
+  /*  
+    transform Coordinate {
+        from Old oftype text;
+        to New oftype decimal;
+        New: Old/100;
+    }
+    
+    block CelsiusToFahrenheitTransformer oftype TableTransformer {
+        inputColumns: ['id'];
+        outputColumn: 'id';
+        use: Coordinate;
+    }
+   */ 
+    block DatabaseLoader oftype SQLiteLoader { table: "goods"; file: "./goodsTransportedByTrain.sqlite"; }
+
+    
+}
