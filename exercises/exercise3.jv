@@ -9,7 +9,8 @@ pipeline Tree {
     ->WriteHeader2
     ->DropBaumartDeutsch
     ->AirportsTableInterpreter
-    ->MonthTransformer
+    ->JanTransformer
+    ->FebTransformer
     ->DatabaseLoader;
 
 
@@ -29,8 +30,8 @@ pipeline Tree {
         "goods_id" oftype IdConstraint,
         "goods_name" oftype text,
         "goods_source" oftype text,
-        "abroad" oftype text,
-        "total" oftype text,
+        "abroad" oftype integer,
+        "total" oftype integer,
         ];
     }
 
@@ -55,13 +56,26 @@ pipeline Tree {
     transform Month{
         from LowerCase oftype text;
         to BUpperCase oftype text;
-        BUpperCase: LowerCase replace /M�rz/ with "MÄRZ";
+        BUpperCase: LowerCase replace /Januar/ with "JANUAR";
     }
-    block MonthTransformer oftype TableTransformer {
+    block JanTransformer oftype TableTransformer {
         inputColumns: ['month'];
-        outputColumn: 'deneme';
+        outputColumn: 'month';
         use: Month;
 }
+
+
+
+    transform Feb{
+        from LowerCase oftype text;
+        to BUpperCase oftype text;
+        BUpperCase: LowerCase replace /Februar/ with "FEBRUAR";
+    }
+    block FebTransformer oftype TableTransformer {
+        inputColumns: ['month'];
+        outputColumn: 'month';
+        use: Feb;
+    }
     /*
     constraint GeoConstraint on text:
         value matches /\d{1,3}\.\d{1,}\, \d{1,3}\.\d{1,}/;
