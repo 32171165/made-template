@@ -105,7 +105,7 @@ def csv_to_sql_table(file, engine):
     print(f"{file} was successfully recorded in {infos[key]['table_name']} table")
     
     #load the dataframe into sql database
-    df.to_sql(name=infos[key]['table_name'], con=engine, index=False, if_exists='append')
+    df.to_sql(name=infos[key]['table_name'], con=engine, index=False, if_exists='replace')
     
    
    
