@@ -5,6 +5,7 @@ pipeline Tree {
     ->AirportsTextFileInterpreter
     ->AirportsCSVInterpreter
     ->WriteHeader
+    ->WrriteHeaderBat
     ->AirportsTableInterpreter
     ->CelsiusToFahrenheitTransformerTemp
     ->CelsiusToFahrenheitTransformerBat
@@ -15,7 +16,8 @@ pipeline Tree {
     block CsvFilePicker oftype FilePicker {path: "/data.csv";}
     block AirportsTextFileInterpreter oftype TextFileInterpreter {}
     block AirportsCSVInterpreter oftype CSVInterpreter { delimiter: ";"; }
-    block WriteHeader oftype CellWriter{at:range A1:F1; write:["id", "producer", "model", "month", "temperature", "battery_temperature"];}
+    block WriteHeader oftype CellWriter{at:range A1:E1; write:["id", "producer", "model", "month", "temperature"];}
+    block WrriteHeaderBat oftype CellWriter{ at:cell J1; write:["battery_temperature"];}
     block AirportsTableInterpreter oftype TableInterpreter {
         header: true;
         columns: [
