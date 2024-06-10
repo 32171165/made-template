@@ -1,6 +1,4 @@
 #!/bin/bash
-rm ../data/data.sqlite
-
 python ./pipeline.py
 
 rm ../data/asylum-decisions.csv

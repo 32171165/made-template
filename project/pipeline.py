@@ -64,9 +64,10 @@ following function makes the necessary cleanings and transformations on the data
 
 param   df : pandas dataframe on which we want to transform
 param   key : name of the dataset to reach the necessary information from the infos dictionary. Also the first five letter of the csv file
+param   infos : dictionary that contains which columns to drop
 return : cleaned dataframe
 """ 
-def transformation(df, key):
+def transformation(df, key, infos):
     # drop the columns which is not necessary
     df = df.drop(columns=infos[key]['columns_to_drop'])
     
@@ -100,7 +101,7 @@ def csv_to_sql_table(file, engine):
     df = pd.read_csv(filepath_or_buffer=(f'{directory}/{file}.csv'))
     
     # transform the dataframe
-    df = transformation(df, key)
+    df = transformation(df, key, infos)
     
     print(f"{file} was successfully recorded in {infos[key]['table_name']} table")
     
